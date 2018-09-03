@@ -1,0 +1,26 @@
+header .ui.secondary.pointing.menu{ border: 0!important; padding: 30px;   }
+
+picture{ width: 100%; height: 100%; display: inline-block; object-fit: cover; }
+
+.featured_news{ height: 600px; overflow: hidden; }
+.featured_news .column{ overflow: hidden;  cursor: pointer; }
+.featured_news .column picture{ position: absolute; z-index: -1 }
+.featured_news article{ position: relative; }
+.featured_news article picture .shadow{ width: 100%; height: 100%; }
+.featured_news article picture .shadow{ transition: 0.3s ease; background-color: rgba(0,0,0,0.2); }
+.featured_news article:hover picture .shadow{ background-color: rgba(0,0,0,0.6);}
+.featured_news article picture .shadow img{ position: relative; z-index: -1 }
+.featured_news .column .content{ position: absolute; padding: 30px; bottom: 0; z-index: 1; color: #eee }
+.featured_news .column .content h3{ font-size: 30px }
+.featured_news .mini_feature_new .content h3{ font-size: 20px }
+.featured_news .column .content h5{ font-weight: 200; margin-top: 0; color: #ddd }
+.featured_news .column .content *{ color: #eee }
+
+main{ padding: 0 0 100px }
+main h2{ padding: 60px 0 30px; color: #aaa; }
+main .features_news{ height: 300px }
+main img.image{ height: 100%!important; }
+main .small_new{ height: 300px }
+main .small_new .column .content h3{ font-size: 20px }
+
+footer{ background-color: #333; color: #ddd; padding: 30px }
