@@ -1,7 +1,8 @@
 Vue.component('filter-user', {
 	template: `
 		<select v-on:change="updateActiveSex">
-			<option 
+			<option selected disabled>Select Gender</option>
+            <option 
 				v-for="sex in sexs" 
 				:value="sex.toLowerCase()"> 
 				{{ sex }} 
@@ -19,11 +20,23 @@ Vue.component('filter-user', {
 Vue.component('form-user', {
 	template: `
 		<section :id="getHashCode()">
-			<form @submit.prevent="refresh()">
-				<input type="text" v-model="user.name" placeholder="Name">
-				<input type="number" v-model="user.age" placeholder="Age">
-				<filter-user :sexs="sexsLabels" :active="updateActiveSex"></filter-user>
-				<button> Agregar </button>
+			<form @submit.prevent="refresh()" class="materia-shadow">
+                <h2> Add new user </h2>
+                <div class="field">
+                    <label> Complete Name </label>
+				    <input type="text" v-model="user.name" placeholder="Your name">
+                </div>
+                <div class="field">
+                    <label> Age </label>
+				    <input type="number" v-model="user.age" placeholder="Your Age">
+                    <span> In case of newborn, you can leave the field in 0 (zero). </span>
+                </div>
+                <div class="field">  
+                    <label> Gender </label>              
+				    <filter-user :sexs="sexsLabels" :active="updateActiveSex"></filter-user>
+                </div>
+                <p v-if="error" class="error_message"> Warning! There are incompleted or bad inserted fields. </p> 
+				<button> Add User </button>
 			</form>
 		</section>
 	`,
@@ -32,6 +45,7 @@ Vue.component('form-user', {
 		() => {
 			return {
 				id: 0,
+                error: false,
 				user: {		
 					name: '',
 					age: 0,
@@ -42,12 +56,12 @@ Vue.component('form-user', {
 		},
 	methods: {
 		getHashCode(){
-			return "user_" + this.user.id;
+			return "user_" + (this.user.id || this.id);
 		},
 		refresh(){
 			
 			if(!this.validate()){
-				alert("Completa todos los campos macho")
+                this.error = true
 				return;
 			}
 
@@ -60,14 +74,14 @@ Vue.component('form-user', {
 		reset(){			
 			this.user.name = "";
 			this.user.age = 0;
-			this.user.sex = "";
+            this.error = false
 		},
 		updateActiveSex(result){
 			this.user.sex = result
 		},
 		validate(){
 
-			if(this.user.name == "" || this.user.age == 0 || this.user.sex == "")
+			if(this.user.name == "" || this.user.age < 0 || this.user.sex == "")
 				return false
 
 			return true

@@ -5,20 +5,26 @@
 	<!-- VUE.js -->
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script type="text/javascript" src="lib/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
 	<main id="app">
 
 		<form-user :ready="newUser"></form-user>
-		<filter-user :sexs="sexsLabels" :active="updateActiveSex"></filter-user>		
+        <section class="wrapper-user materia-shadow">
+    		<filter-user :sexs="sexsLabels" :active="updateActiveSex"></filter-user>		
 
-		<ul>
-			<item-user
-				v-for="user in users"
-				v-if="user.sex.toLowerCase() == filter.toLowerCase()"
-				:user="user"
-				:key="user.id"></item-user>
-		</ul>
+    		<ul>
+                <p v-if="users.filter(user => {
+                    return filter == 'all' ||  user.sex.toLowerCase() == filter.toLowerCase()
+                }).length == 0"> No user added to this gender </p>
+    			<item-user
+    				v-for="user in users"
+    				v-if="filter == 'all' || user.sex.toLowerCase() == filter.toLowerCase()"
+    				:user="user"
+    				:key="user.id"></item-user>
+    		</ul>
+        </section>
 	</main>
 
 	<script type="text/javascript">
@@ -27,8 +33,9 @@
 			data: {
 				id: 0,
 				users: [],
-				filter: 'Undefined',
-				sexsLabels: ['Female', 'Male', 'Undefined']
+				filter: '',
+                showUsers: false,
+				sexsLabels: ['Female', 'Male', 'Undefined', 'All']
 			}, 
 			methods: {
 				newUser(user){

@@ -1,0 +1,18 @@
+*{ font-family: 'Arial'; color: #444 }
+input, select, button{ width: 100%; padding: 15px; margin-top: 10px; box-sizing: border-box;  }
+
+.materia-shadow{ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); display: inline-block; }
+
+#app > *{ display: inline-block; vertical-align: top; }
+
+form{ width: 300px; padding: 30px; margin: 20px 40px; }
+form h2{ margin: 0 0 10px; color: #999; }
+form label{ margin-top: 20px; display: inline-block; color: #bbb}
+form span{ margin-bottom: 30px; font-size: 10px }
+form button{ background-color: #444; color: white; outline: 0; border: 0; transition: 0.3s; cursor: pointer; }
+form button:hover{ opacity: 0.6 }
+form p.error_message{ margin: 20px 0 0; color: red; font-size: 12px; }
+
+.wrapper-user{ width: calc(100% - 475px); margin-top: 20px; padding: 10px 30px 20px; box-sizing: border-box; display: inline-block; }
+.wrapper-user > ul{ clear: both; }
+.wrapper-user select{ width: 200px; float: right; }
