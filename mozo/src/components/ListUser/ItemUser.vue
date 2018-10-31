@@ -8,8 +8,8 @@
         <ItemEditUser :user="user"></ItemEditUser>
       </section>
        <p v-if="error" class="error_message"> Warning! There are incompleted or bad inserted fields. </p>
-      <button v-on:click="edit"> Edit </button>
-      <button v-on:click="remove"> Remove </button>
+      <el-button @click="edit()"> Edit </el-button>
+      <el-button type="danger" @click="remove()"> Remove </el-button>
     </li>
 </template>
 

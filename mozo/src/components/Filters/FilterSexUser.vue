@@ -1,13 +1,14 @@
 <template>
-    <select v-on:change="updateActiveSex">
-        <option selected disabled>Select Gender</option>
-        <option
+  <el-form-item label="Select Gender">
+    <el-select v-model="value" @change="updateActiveSex()" placeholder="Select Gender">
+        <el-option
             v-for="sex in sexs"
-            :value="sex.toLowerCase()"
-            :key="sex.toLowerCase()">
-            {{ sex }}
-        </option>
-    </select>
+            :value="sex.value"
+            :key="sex.value"
+            :label="sex.label">
+        </el-option>
+    </el-select>
+  </el-form-item>
 </template>
 
 <script>
@@ -19,19 +20,32 @@ export default {
   },
   props: ['modeSearcher'],
   data: function () {
-    let sexs = ['Female', 'Male', 'Undefined']
+    let sexs = [{
+      value: 'female',
+      label: 'Female'
+    }, {
+      value: 'male',
+      label: 'Male'
+    }, {
+      value: 'undefined',
+      label: 'Undefined'
+    }]
 
     if (this.modeSearcher) {
-      sexs.push('All')
+      sexs.push({
+        value: 'all',
+        label: 'All'
+      })
     }
 
     return {
-      sexs: sexs
+      sexs: sexs,
+      value: ''
     }
   },
   methods: {
-    updateActiveSex (event) {
-      this.$emit('updateSex', event.target.value)
+    updateActiveSex () {
+      this.$emit('updateSex', this.value)
     }
   }
 }

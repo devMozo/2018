@@ -1,8 +1,8 @@
 <template>
-    <div class="field">
+    <el-form-item class="field">
         <label> {{ title }} </label>
         <slot></slot>
-    </div>
+    </el-form-item>
 </template>
 
 <script>

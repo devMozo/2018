@@ -1,14 +1,14 @@
 <template>
     <section :id="getHashCode()">
-        <form @submit.prevent="refresh()" class="materia-shadow">
+        <el-form class="materia-shadow">
             <h2> Add new user </h2>
 
             <FormUserField :title="'Completed Name'">
-              <input type="text" v-model="user.name" placeholder="Your name">
+              <el-input type="text" v-model="user.name" placeholder="Your name"></el-input>
             </FormUserField>
 
             <FormUserField :title="'Age'">
-              <input type="number" v-model="user.age" placeholder="Your Age">
+              <el-input type="number" v-model="user.age" placeholder="Your Age"></el-input>
               <span> In case of newborn, you can leave the field in 0 (zero). </span>
             </FormUserField>
 
@@ -17,8 +17,8 @@
             </FormUserField>
 
             <p v-if="error" class="error_message"> Warning! There are incompleted or bad inserted fields. </p>
-            <button> Add User </button>
-        </form>
+            <el-button type="primary" @click="refresh()"> Add User </el-button>
+        </el-form>
     </section>
 </template>
 
@@ -97,4 +97,6 @@ export default {
     form button{ background-color: #444; color: white; outline: 0; border: 0; transition: 0.3s; cursor: pointer; }
     form button:hover{ opacity: 0.6 }
     form p.error_message{ margin: 20px 0 0; color: red; font-size: 12px; }
+
+    .el-button span{ font-size: px }
 </style>

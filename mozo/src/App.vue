@@ -1,15 +1,16 @@
 <template>
     <main>
-
         <Header></Header>
-
-        <section class="wrapper-user materia-shadow">
-
-            <FilterSexUser v-on:updateSex="updateActiveSex" :mode-searcher="true"></FilterSexUser>
-
-            <ListUser :sex-filter="sexFilter"></ListUser>
-
-        </section>
+        <el-row :gutter="24" align="middle" justify="center" class="wrapper-user materia-shadow">
+            <el-col class="another" :span="6">
+              <el-form class="materia-shadow">
+                <FilterSexUser v-on:updateSex="updateActiveSex" :mode-searcher="true"></FilterSexUser>
+              </el-form>
+            </el-col>
+            <el-col class="another" :span="18">
+              <ListUser :sex-filter="sexFilter"></ListUser>
+            </el-col>
+        </el-row>
     </main>
 </template>
 
@@ -50,4 +51,5 @@ export default {
     .wrapper-user{ width: calc(100% - 475px); margin-top: 20px; padding: 10px 30px 20px; box-sizing: border-box; display: inline-block; }
     .wrapper-user > ul{ clear: both; }
     .wrapper-user select{ width: 200px; float: right; }
+    .el-col.another{ background: transparent; }
 </style>
