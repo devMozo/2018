@@ -58,12 +58,25 @@
 import Navbar from '@/components/Navbar'
 export default {
   name: 'search',
-  created () {
-    axios.get(URL + 'job/source')
-    .then(function({ data }){
-      this.options = Object.keys(data).map(index => ({ id: index , value: data[index] }));
-      this.onSubmit()
-    }.bind(this));
+  beforeCreate () {
+    let strikes = 0;
+    let interval = setInterval(() => {
+      axios.get(URL + 'job/source')
+      .then(({ data }) => {
+        this.options = Object.keys(data).map(index => ({ id: index , value: data[index] }));
+        this.onSubmit()
+        clearInterval(interval)
+      })
+      .catch((err) => {
+        this.$message.error("Error connection, we're gonna try in a moment againg");
+        strikes++;
+        if(strikes > 3) {
+          this.$auth.destroyToken();
+          clearInterval(interval)
+          this.$router.push({ path: '/' })
+        }
+      });
+    }, 3000)
   },
   data(){
     return {
@@ -105,10 +118,25 @@ export default {
     },
     onSubmit () {
       this.searchResults = [];
-      axios.get(this.getSourceURL(this.form.source), { params: { keywords: this.form.keyword } })
-      .then(function({ data }){
-        this.searchResults = data;
-      }.bind(this));
+      let strikes = 0;
+      let interval = setInterval(() => {
+        axios.get(this.getSourceURL(this.form.source), { params: { keywords: this.form.keyword } })
+          .then(({ data }) => {
+            this.searchResults = data;
+            clearInterval(interval)
+          })
+          .catch(() => {
+            this.$message.error("Error connection, we're gonna try in a moment againg");
+            
+            strikes++;
+            
+            if(strikes > 3) {
+              this.$auth.destroyToken();
+              clearInterval(interval)
+              this.$router.push({ path: '/' })
+            }
+          });
+      }, 3000);
     },
     formatDescription (text) {
       let sanitizedText = (text == null || text == undefined) ? "" : text
